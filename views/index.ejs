@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Member API Endpoint Guide</title>
+</head>
+<body>
+  <h1>Welcome to Data Member API Endpoint Guide</h1>
+  <p>Create by : Zulfan Faizun</p>
+  <ul>
+    <% for (const endpoint of endpoints) { %>
+      <li>
+        <strong>Path:</strong> <%= endpoint.path %><br>
+        <strong>Deskripsi:</strong> <%= endpoint.description %>
+      </li>
+      <br>
+    <% } %>
+  </ul>
+</body>
+</html>
