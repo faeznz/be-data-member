@@ -12,6 +12,9 @@ const jwt = require('jsonwebtoken');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const ejs = require('ejs');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
 app.use(cors());
@@ -27,17 +30,15 @@ app.use((req, res, next) => {
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
-mongoose.set('strictQuery', true);
-mongoose.connect('mongodb+srv://faeznz:faeznz@data.h3xudui.mongodb.net/DataMember?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
-// mongoose.connect('mongodb://127.0.0.1:27017/datamember', { useNewUrlParser: true, useUnifiedTopology: true })
-// const uri = 'mongodb://127.0.0.1:27017/datamember';
-// const uri = 'mongodb://0.0.0.0:27017/datamember';
-  .then(() => {
-    console.log('Connected to MongoDB');
-  })
-  .catch(error => {
-    console.log('Failed to connect to MongoDB', error);
-  });
+mongoose.connect(process.env.MONGODB_URL);
+
+mongoose.connection.on('connected', () => {
+  console.log('Connected to MongoDB');
+});
+
+mongoose.connection.on('error', (err) => {
+  console.error(`MongoDB connection error: ${err}`);
+});
 
   app.get('/', (req, res) => {
    // Create an array of available endpoints with their descriptions
