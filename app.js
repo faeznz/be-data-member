@@ -122,7 +122,7 @@ app.put('/members/:id', (req, res) => {
 // Menghapus member berdasarkan ID
 app.delete('/members/:id', (req, res) => {
   const memberId = req.params.id;
-  Member.findByIdAndRemove(memberId)
+  Member.findByIdAndDelete(memberId)
     .then(() => {
       res.status(200).json({ message: 'Member deleted successfully' });
     })
